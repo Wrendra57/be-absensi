@@ -1,31 +1,31 @@
-const { Post } = require("../models");
+// const { Post } = require("../models");
 
-module.exports = {
-  create(createArgs) {
-    return Post.create(createArgs);
-  },
+// module.exports = {
+//   create(createArgs) {
+//     return Post.create(createArgs);
+//   },
 
-  update(id, updateArgs) {
-    return Post.update(updateArgs, {
-      where: {
-        id,
-      },
-    });
-  },
+//   update(id, updateArgs) {
+//     return Post.update(updateArgs, {
+//       where: {
+//         id,
+//       },
+//     });
+//   },
 
-  delete(id) {
-    return Post.destroy(id);
-  },
+//   delete(id) {
+//     return Post.destroy(id);
+//   },
 
-  find(id) {
-    return Post.findByPk(id);
-  },
+//   find(id) {
+//     return Post.findByPk(id);
+//   },
 
-  findAll() {
-    return Post.findAll();
-  },
+//   findAll() {
+//     return Post.findAll();
+//   },
 
-  getTotalPost() {
-    return Post.count();
-  },
-};
+//   getTotalPost() {
+//     return Post.count();
+//   },
+// };

@@ -1,0 +1,35 @@
+/api/v1/auth/register:
+    post:  
+      summary: Create new user
+      security: 
+        - BearerAuth: []
+      tags: 
+        - User
+      consumes:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          "multipart/formData":
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/CreateUser"
+      produces:
+        - application/json
+      responses:
+        200:
+          description: Post User data success
+          content:
+            "application/json":
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/JsendSuccess"
+                  - properties:
+                      data:
+                        type: array
+                        items:
+                          allOf:
+                            - properties:
+                                id:
+                                  type: integer
+                            - $ref: "#/components/schemas/SuccessCreateUser"

@@ -5,10 +5,10 @@
 
 /** Destruct environment variable to get database configuration */
 const {
-  DB_USERNAME = null,
-  DB_PASSWORD = null,
+  DB_USERNAME = "postgres",
+  DB_PASSWORD = "password",
   DB_HOST = "127.0.0.1",
-  DB_NAME = "database",
+  DB_NAME = "absensi",
 } = process.env;
 
 module.exports = {
@@ -22,14 +22,14 @@ module.exports = {
   test: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: `${DB_NAME}_test`,
+    database: `${DB_NAME}_development`,
     host: DB_HOST,
     dialect: "postgres",
   },
   production: {
     username: DB_USERNAME,
     password: DB_PASSWORD,
-    database: `${DB_NAME}_production`,
+    database: `${DB_NAME}_development`,
     host: DB_HOST,
     dialect: "postgres",
   },

@@ -1,0 +1,217 @@
+# paths:
+#   /api/user/detail:
+#     get:  
+#       summary: get detail user
+#       security: 
+#         - BearerAuth: []
+#       tags: 
+#         - User
+#       consumes:
+#         - application/json
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: an expected responses detail user data
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/JsendSuccess"
+#                   - properties:
+#                       data:
+#                         type: array
+#                         items:
+#                           allOf:
+#                             - properties:
+#                                 id:
+#                                   type: integer
+#                             - $ref: "#/components/schemas/User"
+#   /api/users/:
+#     get:  
+#       summary: get all users
+#       security: 
+#         - BearerAuth: []
+#       tags: 
+#         - User
+#       consumes:
+#         - application/json
+#       produces:
+#         - application/json
+#       parameters:
+#         - in: query
+#           name: page
+#           schema:
+#             type: integer
+#             required: true
+#             description: page
+#       responses:
+#         200:
+#           description: Retrive Data Users
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/JsendSuccess"
+#                   - properties:
+#                       data:
+#                         type: object
+#                         properties:
+#                           currentPage:
+#                             type: integer
+#                           totalPages:
+#                             type: integer
+#                           totalPerPage:
+#                             type: integer
+#                           currentContent:
+#                             type: integer
+#                           content:
+#                             type: array
+#                             items:
+#                               allOf:
+#                                 - properties:
+#                                     id:
+#                                       type: string
+#                                 - $ref: "#/components/schemas/GetUsers" 
+#   /api/user/create:
+#     post:  
+#       summary: Create new user for super admin role
+#       security: 
+#         - BearerAuth: []
+#       tags: 
+#         - User
+#       consumes:
+#         - application/json
+#       requestBody:
+#         required: true
+#         content:
+#           "multipart/formData":
+#             schema:
+#               allOf:
+#                 - $ref: "#/components/schemas/CreateUser"
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: Post User data success
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/JsendSuccess"
+#                   - properties:
+#                       data:
+#                         type: array
+#                         items:
+#                           allOf:
+#                             - properties:
+#                                 id:
+#                                   type: integer
+#                             - $ref: "#/components/schemas/SuccessCreateUser"
+#   /api/user/delete/{id}:
+#       delete:  
+#         summary: delete user by superadmin
+#         security: 
+#           - BearerAuth: []
+#         tags: 
+#           - User
+#         consumes:
+#           - application/json
+#         produces:
+#           - application/json
+#         parameters:
+#           - in: path
+#             name: id
+#             schema:
+#               type: integer
+#               required: true
+#               description: User id
+#         responses:
+#           200:
+#             description: Delete User data success
+#             content:
+#               "application/json":
+#                 schema:
+#                   allOf:
+#                     - $ref: "#/components/schemas/JsendSuccess"
+#                     - properties:
+#                         data:
+#                           type: array
+#                           items:
+#                             allOf:
+#                               - properties:
+#                                   id:
+#                                     type: integer
+#                               - $ref: "#/components/schemas/User"
+#   /api/user/detail/{id}:
+#       get:  
+#         summary: get detail user by superadmin
+#         security: 
+#           - BearerAuth: []
+#         tags: 
+#           - User
+#         consumes:
+#           - application/json
+#         produces:
+#           - application/json
+#         parameters:
+#           - in: path
+#             name: id
+#             schema:
+#               type: integer
+#               required: true
+#               description: User id
+#         responses:
+#           200:
+#             description: get User data success
+#             content:
+#               "application/json":
+#                 schema:
+#                   allOf:
+#                     - $ref: "#/components/schemas/JsendSuccess"
+#                     - properties:
+#                         data:
+#                           type: array
+#                           items:
+#                             allOf:
+#                               - properties:
+#                                   id:
+#                                     type: integer
+#                               - $ref: "#/components/schemas/User"
+#   /api/profile/edit:
+#     put:  
+#       summary: Edit Profile (* Note Use Multipart/formData)
+#       security: 
+#         - BearerAuth: []
+#       tags: 
+#         - User
+#       requestBody:
+#         required: true
+#         content:
+#           "multipart/formData":
+#             schema:
+#               allOf:
+#                 - $ref: "#/components/schemas/EditUser"
+#           "application/json":
+#             schema:
+#                 -$ref: "#/components/schemas/EditUser2"
+          
+#       produces:
+#         - application/json
+#       responses:
+#         200:
+#           description: Post User data success
+#           content:
+#             "application/json":
+#               schema:
+#                 allOf:
+#                   - $ref: "#/components/schemas/JsendSuccess"
+#                   - properties:
+#                       data:
+#                         type: array
+#                         items:
+#                           allOf:
+#                             - properties:
+#                                 id:
+#                                   type: integer
+#                             - $ref: "#/components/schemas/SuccessEditUser"

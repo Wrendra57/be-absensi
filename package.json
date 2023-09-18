@@ -4,20 +4,41 @@
   "main": "app/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "bin/www",
-    "develop": "nodemon -q bin/www",
+    "start": "node app/index.js",
+    "develop": "nodemon -q app/index.js",
     "db:create": "./node_modules/.bin/sequelize-cli db:create",
     "db:drop": "./node_modules/.bin/sequelize-cli db:drop",
     "db:migrate": "./node_modules/.bin/sequelize-cli db:migrate",
     "db:rollback": "./node_modules/.bin/sequelize-cli db:migrate:undo",
-    "db:seed": "./node_modules/.bin/sequelize-cli db:seed:all"
+    "db:seed": "./node_modules/.bin/sequelize-cli db:seed:all",
+    "test": "jest"
+  },
+  "jest": {
+    "clearMocks": true,
+    "collectCoverage": true,
+    "coverageDirectory": "coverage",
+    "coverageProvider": "v8",
+    "verbose": true,
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^4.17.3",
+    "jest": "^29.7.0",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "sequelize": "^6.18.0",
-    "sequelize-cli": "^6.4.1"
+    "sequelize-cli": "^6.4.1",
+    "socket.io": "^4.7.2",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"

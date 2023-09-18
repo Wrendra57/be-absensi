@@ -5,9 +5,11 @@
  * @author Fikri Rahmat Nurhidayat
  */
 
-const app = require("../app")
+const app = require("../app");
 const port = process.env.PORT || 8000;
 
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`)
-})
+const server = app.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
+});
+
+module.exports = server;

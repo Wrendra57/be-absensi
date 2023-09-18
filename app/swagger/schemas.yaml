@@ -1,0 +1,285 @@
+components:
+  schemas:
+    Jsend:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - 200
+            - 400
+            - 500
+    JsendSuccess:
+      allOf:
+        - $ref: "#/components/schemas/Jsend"
+        - type: object
+          required:
+            - data
+          properties:
+            status:
+              type: number
+            message:
+              type: string
+            data:
+              type: object
+    JsendError:
+      allOf:
+        - $ref: "#/components/schemas/Jsend"
+        - type: object
+          required:
+            - message
+          properties:
+            status:
+              type: string
+              enum:
+                - error
+            message:
+              type: string
+    AuthLogin:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    AuthRegister:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    AuthMe:
+      type: object
+      properties:
+        role:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    User:
+      type: object
+      properties:
+        address:
+          type: string
+        avatar:
+          type: string
+        city:
+          type: string
+        first_name:
+          type: string
+        gmaps:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+        province:
+          type: string
+        gender:
+          type: string
+        bank_account:
+          type: string
+        bank_name:
+          type: string
+        bank_username:
+          type: string
+        status: 
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        deleted_at:
+          type: string
+        email:
+          type: string
+        not_locked:
+          type: string
+        enabled:
+          type: string
+        role_name:
+          type: string
+    
+    GetUsers:
+      type: object
+      properties:
+        address:
+          type: string
+        avatar:
+          type: string
+        city:
+          type: string
+        first_name:
+          type: string
+        gmaps:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+        province:
+          type: string
+        gender:
+          type: string
+        bank_account:
+          type: string
+        bank_name:
+          type: string
+        bank_username:
+          type: string
+        status: 
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
+        deleted_at:
+          type: string
+        email:
+          type: string
+        not_locked:
+          type: string
+        enabled:
+          type: string
+        user_id:
+          type: string
+        profile_id:
+          type: string
+        role_name:
+          type: array
+          items:
+            type: string
+          example: ["ROLE_SUPERUSER", "ROLE_SK"]
+
+    CreateUser:
+      type: object
+      properties:
+        uuid:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+
+    SuccessCreateUser:
+      type: object
+      properties:
+        id:
+          type: bigint
+        uuid: 
+          type: string
+        
+        email:
+          type: string
+        name: 
+          type: string
+        is_enabled:
+          type: boolean
+        role: 
+          type: string
+
+    EditUser:
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        first_name:
+          type: string
+        gmaps:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+        province:
+          type: string
+        gender:
+          type: string
+        avatar:
+          type: string
+          format: binary
+        bank_account:
+          type: string
+        bank_name:
+          type: string
+        bank_username:
+          type: string
+        status: 
+          type: string
+    EditUser2:
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        first_name:
+          type: string
+        gmaps:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+        province:
+          type: string
+        gender:
+          type: string
+        bank_account:
+          type: string
+        bank_name:
+          type: string
+        bank_username:
+          type: string
+        status: 
+          type: string
+
+    SuccessEditUser:
+      type: object
+      properties:
+        address:
+          type: string
+        avatar:
+          type: string
+          format: binary
+        city:
+          type: string
+        first_name:
+          type: string
+        gmaps:
+          type: string
+        last_name:
+          type: string
+        phone_number:
+          type: string
+        province:
+          type: string
+        gender:
+          type: string
+        bank_account:
+          type: string
+        bank_name:
+          type: string
+        bank_username:
+          type: string
+        status: 
+          type: string
+        deleted_at:
+          type: string
+          example: "2023-01-18T12:40:29.771Z"
+        created_at: 
+          type: string
+          example: "2023-01-18T12:40:29.771Z"
+        updated_at:
+          type: string
+          example: "2023-01-18T12:40:29.771Z"
