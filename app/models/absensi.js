@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
       models.Absensi.belongsTo(models.User, {
         foreignKey: "uuid",
       });
+      models.Absensi.belongsTo(models.WorkDate, {
+        foreignKey: "id",
+      });
     }
   }
   Absensi.init(
@@ -19,7 +22,10 @@ module.exports = (sequelize, DataTypes) => {
       uuid: DataTypes.STRING,
       check_in: DataTypes.STRING,
       check_out: DataTypes.STRING,
-      status: DataTypes.STRING,
+      statusCheckin: DataTypes.BOOLEAN,
+      statusCheckout: DataTypes.BOOLEAN,
+      keterangan: DataTypes.STRING,
+      idAbsent: DataTypes.INTEGER,
     },
     {
       sequelize,

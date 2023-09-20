@@ -20,4 +20,19 @@ const createUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser };
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const loginSevice = await UserService.login({ email, password });
+    return res.status(loginSevice.status).json(loginSevice);
+  } catch (error) {
+    return {
+      status: 500,
+      message: error.message,
+      data: null,
+    };
+  }
+};
+
+module.exports = { createUser, login };

@@ -23,7 +23,7 @@ describe("POST /api/v1/auth/register", () => {
       .post("/api/v1/auth/register")
       .send(payload)
       .then((res) => {
-        console.log(res._body.data);
+        // console.log(res._body.data);
         expect(res.statusCode).toBe(200);
         expect(res._body.data).not.toEqual(null);
         expect(res._body.data.uuid).not.toEqual(null);
@@ -121,6 +121,188 @@ describe("POST /api/v1/auth/register", () => {
         expect(res.statusCode).toBe(400);
         expect(res._body.data).toEqual(null);
         expect(res._body.message).toEqual("Email already exists");
+      });
+  });
+});
+
+describe("POST api/v1/auth/login", () => {
+  afterEach(async () => {
+    console.log("jalan");
+    await UsersRepository.destroyAll("testing");
+  });
+  it("1. should response with 200 as status code & succes login", async () => {
+    // const filePath = path.join(__dirname, "../storages/.storage");
+
+    const payload = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+    await request(app).post("/api/v1/auth/register").send(payload);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(200);
+        expect(res._body.data).not.toEqual(null);
+        expect(res._body.data.token).not.toEqual(null);
+      });
+  });
+  it("2. should response with 400 as status code & empty email", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "",
+      password: "1234",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(400);
+        expect(res._body.status).toEqual(400);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Email tidak boleh kosong");
+      });
+  });
+  it("3. should response with 400 as status code & without body email", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      password: "1234",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(400);
+        expect(res._body.status).toEqual(400);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Email tidak boleh kosong");
+      });
+  });
+  it("4. should response with 400 as status code & not valid format email", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "testing2s.com",
+      password: "1234",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(400);
+        expect(res._body.status).toEqual(400);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Email tidak valid");
+      });
+  });
+  it("5. should response with 400 as status code & empty password", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "testing2s@gmail.com",
+      password: "",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(400);
+        expect(res._body.status).toEqual(400);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Password tidak boleh kosong");
+      });
+  });
+  it("6. should response with 400 as status code & without body password", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "testing2s@gmail.com",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(400);
+        expect(res._body.status).toEqual(400);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Password tidak boleh kosong");
+      });
+  });
+  it("7. should response with 404 as status code & not found email", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "coba@sgmail.com",
+      password: "1234",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(404);
+        expect(res._body.status).toEqual(404);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Email tidak terdaftar");
+      });
+  });
+  it("8. should response with 400 as status code & wrong password", async () => {
+    const payloadRegistrasi = {
+      name: "testing",
+      email: "testing2s@gmail.com",
+      password: "1234",
+    };
+
+    const payloadLogin = {
+      email: "testing2s@gmail.com",
+      password: "abcd",
+    };
+    await request(app).post("/api/v1/auth/register").send(payloadRegistrasi);
+    return request(app)
+      .post("/api/v1/auth/login")
+      .send(payloadLogin)
+      .then((res) => {
+        expect(res.statusCode).toBe(400);
+        expect(res._body.status).toEqual(400);
+        expect(res._body.data).toEqual(null);
+        expect(res._body.message).toEqual("Passwords salah");
       });
   });
 });

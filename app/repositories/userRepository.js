@@ -19,8 +19,8 @@ const getUserByUUID = async (uuid) => {
 const getUserByEmail = async (email) => {
   try {
     const getUser = await User.findOne({ where: { email: email } });
-    console.log("repositoryadwadwawd");
-    console.log(getUser);
+    // console.log("repositoryadwadwawd");
+    // console.log(getUser);
     return getUser;
   } catch (error) {
     console.log("repositoryadwadwawd");
@@ -61,9 +61,20 @@ const destroyAll = async (params) => {
   } catch (error) {}
 };
 
+const getListUUID = async () => {
+  try {
+    const getAll = await User.findAll({
+      where: { role: "member" },
+      attributes: ["uuid"],
+    });
+    return getAll;
+  } catch (error) {}
+};
+
 module.exports = {
   createUser,
   getUserByUUID,
   getUserByEmail,
   destroyAll,
+  getListUUID,
 };

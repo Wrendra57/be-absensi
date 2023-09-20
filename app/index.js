@@ -18,6 +18,9 @@ const swaggerJsdoc = require("swagger-jsdoc");
 // SWAGGER
 const swaggerOptions = require("./utils/swaggerOptions");
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
+const cron = require("node-cron");
+const { setDate } = require("./controllers/api/v1/workDateController");
+
 /** Install request logger */
 app.use(morgan("dev"));
 app.use(cors(false));
@@ -32,6 +35,19 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(router);
 
 // const app = require("../app");
+// const setAbsensi = cron.schedule(
+//   "*/5 * * * * *",
+//   async () => {
+//     await setDate();
+//     console.log("running every minute 1, 2, 4 and 5");
+//   },
+//   {
+//     scheduled: true,
+//     timezone: "Asia/Jakarta",
+//   }
+// );
+
+// setAbsensi.start();
 
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);

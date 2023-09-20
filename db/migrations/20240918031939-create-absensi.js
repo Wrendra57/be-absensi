@@ -18,15 +18,30 @@ module.exports = {
         },
       },
       check_in: {
-        allowNull: false,
         type: Sequelize.STRING,
       },
       check_out: {
         type: Sequelize.STRING,
       },
-      status: {
+      statusCheckin: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
+      statusCheckout: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN,
+      },
+      keterangan: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      idAbsent: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "WorkDates",
+          key: "id",
+        },
       },
       createdAt: {
         allowNull: false,
